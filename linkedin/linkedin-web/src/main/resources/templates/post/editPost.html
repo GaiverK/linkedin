@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div class="compny-profile">
+        <div th:replace="mainlayout :: page-name(name='Edit post')"></div>
+        <form th:action="@{/posts/update/{id}(id=${post.id})}"
+              th:object="${post}" method="post">
+            <input type="hidden" th:field="*{authorId}">
+            Text:
+            <input type="text" th:field="*{text}">
+            <br/><br/>
+            <input type="submit" value="Save post">
+        </form>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

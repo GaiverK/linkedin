@@ -1,0 +1,27 @@
+<div class="col-md-6" xmlns:th="http://www.w3.org/1999/xhtml" th:each="educationDto, iterator : ${educationDtoList}">
+    <!-- Education Details -->
+    <div class="sidebar">
+        <h5 class="main-title"><span th:text="'Education Details ' + ${iterator.index + 1}"></span>
+            <a th:href="@{/educations/update/{id}(id=${educationDto.id})}"><i class="fa fa-pencil edit-but"></i></a>
+            <a th:href="@{/educations/delete/{id}(id=${educationDto.id})}"><i class="fa fa-trash delete-but"></i></a>
+        </h5>
+        <div class="sidebar-information">
+            <ul class="single-category">
+                <li class="row">
+                    <h6 class="title col-xs-6">School</h6>
+                    <span class="subtitle col-xs-6" th:utext="${educationDto.school}">school</span></li>
+                <li class="row">
+                    <h6 class="title col-xs-6">Degree</h6>
+                    <span class="subtitle col-xs-6" th:utext="${educationDto.degree}">degree</span></li>
+                <li class="row">
+                    <h6 class="title col-xs-6">From year</h6>
+                    <span class="subtitle col-xs-6" th:utext="${educationDto.fromYear}">fromYear</span></li>
+                <li class="row">
+                    <h6 class="title col-xs-6">To year</h6>
+                    <span class="subtitle col-xs-6" th:utext="${educationDto.toYear}">toYear</span></li>
+                <li class="row">
+                    <span class="subtitle col-xs-12" th:utext="${educationDto.description}">description</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

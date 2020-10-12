@@ -1,0 +1,22 @@
+<div class="col-md-6" xmlns:th="http://www.w3.org/1999/xhtml"
+     th:each="accomplishment, iterator : ${accomplishmentDtos}">
+    <!-- Accomplishment Details -->
+    <div class="sidebar">
+        <h5 class="main-title"><span th:text="'Accomplishment Details ' + ${iterator.index + 1}"></span>
+            <a th:href="@{/accomplishments/update/{id}(id=${accomplishment.id})}"><i class="fa fa-pencil edit-but"></i></a>
+            <a th:href="@{/accomplishments/delete/{id}(id=${accomplishment.id})}"><i class="fa fa-trash delete-but"></i></a>
+        </h5>
+        <div class="sidebar-information">
+            <ul class="single-category">
+                <li class="row">
+                    <h6 class="title col-xs-6">Title</h6>
+                    <span class="subtitle col-xs-6" th:utext="${accomplishment.title}">title</span></li>
+                <li class="row">
+                    <h6 class="title col-xs-6">Date</h6>
+                    <span class="subtitle col-xs-6" th:utext="${accomplishment.date}">date</span></li>
+                <li class="row">
+                    <span class="subtitle col-xs-12" th:utext="${accomplishment.description}">description</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

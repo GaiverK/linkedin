@@ -1,0 +1,22 @@
+<div class="col-md-6" xmlns:th="http://www.w3.org/1999/xhtml" th:each="recommendation : ${recommendationDtoList}">
+    <!-- Recommendation Details -->
+    <div class="sidebar">
+        <h5 class="main-title"><span th:text="'Recommendation from '"></span><span><a
+                th:href="@{/profiles/get/{profileId}(profileId=${recommendation.authorProfileId})}"
+                th:text="${recommendation.authorName} + ' '"></a></span><span
+                th:text="${recommendation.createdOn}"></span>
+            <span class="float-right">
+                <a th:href="@{/recommendations/update/{id}(id=${recommendation.id})}"><i
+                        class="fa fa-pencil edit-but"></i></a>
+                <a th:href="@{/recommendations/delete/{id}(id=${recommendation.id})}"><i
+                        class="fa fa-trash delete-but"></i></a>
+            </span>
+        </h5>
+        <div class="sidebar-information">
+            <ul class="single-category">
+                <li class="row">
+                    <span class="subtitle col-xs-12" th:utext="${recommendation.description}">description</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body class="admbody">
+<div class="container h-80 logformadm">
+    <div class="row align-items-center h-100">
+        <div class="col-md-offset-4 col-md-4 mx-auto">
+            <div class="text-center">
+                <img th:if="${operation == 'register'}" class="rounded-circle profile-img-card"
+                     src="/images/minimi-admin.png"/>
+                <img th:unless="${operation == 'register'}" class="rounded-circle profile-img-card"
+                     src="/images/adminlogin.png"/>
+                <p id="profile-name" class="profile-name-card"></p>
+                <form th:if="${operation == 'register'}" action="/admins/register" method="post" class="form-signin">
+                    <input type="text" name="name" class="form-control form-group" placeholder="Evil" required
+                           autofocus>
+                    <input type="text" name="email" class="form-control form-group" placeholder="evil@mail.ru" required
+                           autofocus>
+                    <input type="password" name="password" class="form-control form-group" placeholder="password"
+                           required autofocus>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">sign up</button>
+                </form><!-- /form -->
+                <form th:unless="${operation == 'register'}" action="/admins/login" method="post" class="form-signin">
+                    <input type="email" name="email" class="form-control form-group" placeholder="evil@mail.ru" required
+                           autofocus>
+                    <input type="password" name="password" class="form-control form-group" placeholder="password"
+                           required autofocus>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">sign in</button>
+                </form><!-- /form -->
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

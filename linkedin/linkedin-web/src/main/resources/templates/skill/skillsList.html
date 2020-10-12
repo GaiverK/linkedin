@@ -1,0 +1,8 @@
+<ul class="row" xmlns:th="http://www.w3.org/1999/xhtml">
+    <li class="col-sm-4" th:each="skill : ${skillDtos}">
+        <h6><i class="fa fa-briefcase"></i><span th:utext="${skill.name}"></span>
+            <a th:href="@{/skills/update/{id}(id=${skill.id})}"><i class="fa fa-pencil edit-but"></i></a>
+            <a th:href="@{/skills/delete/{id}(id=${skill.id})}"><i class="fa fa-trash delete-but"></i></a>
+        </h6>
+    </li>
+</ul>

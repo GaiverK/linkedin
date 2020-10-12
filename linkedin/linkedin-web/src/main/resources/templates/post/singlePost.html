@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+
+    <div th:replace="mainlayout :: page-name(name='Single post')"></div>
+
+    <div class="blog-content pt60">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <article class="uou-block-7f blog-post-content">
+                        <img th:src="@{/img/b-post-image.jpg}" alt="">
+
+                        <div class="meta">
+                            <span class="comments" th:text="'Total comments (' + ${#lists.size(comments)} + ')'">Comments</span>
+                        </div>
+
+                        <h1><a th:href="@{/profiles/get/{id}(id=${post.profileId})}" th:text="${post.authorName}"></a>
+                            <a th:href="@{/posts/singlePost/{postId}/update(postId=${post.id})}" class="reply edit-post">
+                                &nbsp;&nbsp;<i class="fa fa-pencil"></i>
+                            </a>
+                            <a th:href="@{/posts/delete/{postId}(postId=${post.id})}" class="reply delete-post">
+                                &nbsp;<i class="fa fa-trash"></i>
+                            </a>
+                        </h1>
+
+                        <div th:if="${operation}=='update'">
+                            <form th:action="@{/posts/update/{id}(id=${post.id})}"
+                                  th:object="${post}" method="post">
+                                <input type="hidden" th:field="*{authorId}">
+                                <textarea name="text" th:text="${post.text}" cols="30" rows="5"></textarea>
+                                <input class="btn btn-primary" type="submit" value="Save Post">
+                            </form>
+                        </div>
+
+                        <p th:text="${post.text}" th:unless="${operation}=='update'"></p>
+
+                        <a class="btn btn-primary " th:href="@{/posts/getAllPosts}">Back To Post List</a>
+                    </article> <!-- end .uou-block-7f -->
+
+                    <div class="uou-post-comment">
+                        <aside class="uou-block-14a">
+                            <h5 class="sidebar-title" th:text="'Comments (' + ${#lists.size(comments)} + ')'">
+                                Comments</h5>
+                            <ul>
+                                <li th:each="comment:${comments}">
+                                    <article class="comment">
+                                        <img th:src="@{/img/p-post-1.png}" alt="">
+                                        <div>
+                                            <header>
+                                                <a th:href="@{/profiles/get/{id}(id=${comment.authorProfileId})}"
+                                                   th:text="${comment.authorName}" class="user"></a>
+                                                <a th:href="@{/comments/delete/{commentID}(commentID=${comment.id})}"
+                                                   class="reply">
+                                                    &nbsp;&nbsp;<i class="fa fa-trash"></i>
+                                                </a>
+                                            </header>
+
+                                            <p th:text="${comment.text}">text</p>
+                                        </div>
+                                    </article>
+                                </li>
+                            </ul>
+
+                        </aside> <!-- end .uou-block-14a -->
+
+                        <h4>Add Comment</h4>
+
+                        <div class="uou-post-comment-form">
+                            <form role="form" th:action="@{/comments/add}" method="POST">
+                                <input type="hidden" name="postID" th:value="${post.id}">
+                                <input type="hidden" name="authorID" value="2">
+                                <div class="row">
+
+                                    <div class="col-sm-12">
+                                        <textarea placeholder="Your comment" name="text"></textarea>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <input class="btn btn-primary" type="submit" value="Add Comment">
+                                    </div>
+
+                                </div> <!-- end row -->
+                            </form>
+                        </div>
+
+                    </div>
+
+
+                </div> <!-- end grid layout -->
+
+
+            </div> <!-- end row -->
+
+        </div> <!-- edn cotainer -->
+
+    </div>
+
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

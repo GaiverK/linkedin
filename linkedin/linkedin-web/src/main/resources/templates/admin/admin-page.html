@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body class="admbody">
+<div class="container h-80 logformadm">
+    <div class="row align-items-center h-100">
+        <!--    All members    -->
+        <div class="col-md-4 mx-auto">
+            <div class="text-center">
+                <table class="table-striped allmemb">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody class="all">
+                    <tr class="block_member" th:each="member : ${members}"
+                        th:if="${member.accountStatus == T(com.ra.course.linkedin.model.entity.person.AccountStatus).ACTIVE}"
+                        th:attr="member=${member.Id},admin=${admin.Id}">
+                        <td th:text="${member.Id}">1</td>
+                        <td th:text="${member.name}">Raad</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4 mx-auto">
+            <div class="text-center">
+                <h1 style="margin-top: 0;">Admin page</h1>
+                <img style="max-width: 58%;" class="rounded-circle profile-img-card" src="/images/adminlogged.png"/>
+                <h2>Admin <span th:text="${admin.name}"></span></h2>
+
+                <form th:action="@{/admins/__${id}__/block-member/}" method="post">
+                    <label>Member Id:</label>
+                    <input class="form-control form-group" type="text" th:name="memberId"/>
+                    <p><input class="btn btn-lg btn-error btn-block" onclick="return confirm('Are you sure?')"
+                              type="submit" value="Block member"/></p>
+                </form>
+
+                <form th:action="@{/admins/__${id}__/unblock-member/}" method="post">
+                    <label>Member Id:</label>
+                    <input class="form-control form-group" type="text" th:name="memberId"/>
+                    <p><input class="btn btn-lg btn-success btn-block" type="submit" value="Unblock member"/></p>
+                </form>
+            </div>
+        </div>
+        <!--    Blocked members    -->
+        <div class="col-md-4 mx-auto">
+            <div class="text-center">
+                <table class="table-striped blockedmemb">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody class="blocked">
+                    <tr class="unblock_member" th:each="member : ${members}"
+                        th:if="${member.accountStatus == T(com.ra.course.linkedin.model.entity.person.AccountStatus).BLOCKED}"
+                        th:attr="member=${member.Id},admin=${admin.Id}">
+                        <td th:text="${member.Id}">1</td>
+                        <td th:text="${member.name}">Raad</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

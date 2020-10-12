@@ -1,0 +1,294 @@
+ext {
+    //spring libs
+    springVersion = '5.0.8.RELEASE'
+    springDataVersion = '2.0.9.RELEASE'
+    springAmqpVersion = '2.0.5.RELEASE'
+    springSecurityVersion = '5.0.7.RELEASE'
+    springBatchVersion = '4.0.1.RELEASE'
+    springIntegrationVersion = '5.0.7.RELEASE'
+    springBootVersion = '2.0.4.RELEASE'
+
+    //logging libs
+    slf4jVersion = '1.7.25'
+    slf4jSimple = '1.7.25'
+    logbackVersion = '1.2.3'
+    log4j = "1.2.17"
+    log4j2Api = "2.10.0"
+    disruptor = "3.4.1"
+    slf4jApiVersion = '1.7.25'
+
+    groovyVersion = '2.4.5'
+    guavaVersion = '21.0'
+
+    aspectjVersion = '1.9.1'
+    derbyVersion = '10.13.1.1'
+    dbcpVersion = '2.1'
+    mysqlVersion = '6.0.6'
+    h2Version = '1.4.194'
+    jodaVersion = '2.9.9'
+    utVersion = '6.0.1.GA'
+    javaxValidationVersion = '2.0.0.Final'
+    javaElVersion = '3.0.0'
+    glasshfishELVersion = '3.0.0'
+    jmsVersion = '2.0'
+    artemisVersion = '2.1.0'
+    hornetqVersion = '2.4.0.Final'
+    castorVersion = '1.4.1'
+    jacksonVersion = '2.9.5'
+    httpclientVersion = '4.5.6'
+    poiVersion = '3.16'
+    tilesVersion = '3.0.7'
+    bootstrapVersion = '3.3.7-1'
+    thymeSecurityVersion = '3.0.2.RELEASE'
+    jQueryVersion = '3.2.1'
+    twsVersion = '9.0.0.M22'
+
+    //persistency libraries
+    hibernateVersion = '5.3.4.Final'
+    hibernateJpaVersion = '1.0.0.Final'
+    hibernateValidatorVersion = '6.0.9.Final'
+    atomikosVersion = '4.0.4'
+    hikariVersion = '2.7.4'
+    ps6SpyVersion = '3.7.0'
+
+    //testing libs
+    mockitoVersion = '2.0.2-beta'
+    hamcrestVersion = '1.3'
+    dbunitVersion = '2.5.3'
+    junit5Version = '5.3.1'
+    junitPlatformRunner = '1.3.1'
+    assertjVersion = '3.10.0'
+
+    //graph
+    graphQlBootVersion = '4.0.0'
+
+    //SQL Data Base
+    postgresVersion = '42.2.4'
+
+    //configuration
+    lombockVersion = '1.18.4'
+    mapstructVersion = '1.2.0.Final'
+    jaxbApiVersion = '2.1'
+    jaxbVersion = '2.3.0.1'
+    vavrVersion = '0.10.0'
+
+    //javaee
+    javaxAnnotation = '1.3.2'
+
+    //dependencyInjection
+    guiceVersion = '4.1.0'
+
+    //reactive
+    rxJavaVersion = '2.2.3'
+
+    //jetty
+    jettyVersion = '9.4.7.v20170914'
+
+    //json
+    gsonVersion = '2.8.2'
+    //tomcat
+    embeddedTomcat = '9.0.10'
+
+    //jmh
+    jmhCore = '1.19'
+
+    spring = [
+            context             : "org.springframework:spring-context:$springVersion",
+            webmvc              : "org.springframework:spring-webmvc:$springVersion",
+            aop                 : "org.springframework:spring-aop:$springVersion",
+            aspects             : "org.springframework:spring-aspects:$springVersion",
+            tx                  : "org.springframework:spring-tx:$springVersion",
+            jdbc                : "org.springframework:spring-jdbc:$springVersion",
+            contextSupport      : "org.springframework:spring-context-support:$springVersion",
+            orm                 : "org.springframework:spring-orm:$springVersion",
+            test                : "org.springframework:spring-test:$springVersion",
+            jms                 : "org.springframework:spring-jms:$springVersion",
+            oxm                 : "org.springframework:spring-oxm:$springVersion",
+            webSocket           : "org.springframework:spring-websocket:$springVersion",
+            messaging           : "org.springframework:spring-messaging:$springVersion",
+            webflux             : "org.springframework:spring-webflux:$springVersion",
+            instrument          : "org.springframework:spring-instrument:$springVersion",
+            data                : "org.springframework.data:spring-data-jpa:$springDataVersion",
+            securityWeb         : "org.springframework.security:spring-security-web:$springSecurityVersion",
+            securityConfig      : "org.springframework.security:spring-security-config:$springSecurityVersion",
+            securityTaglibs     : "org.springframework.security:spring-security-taglibs:$springSecurityVersion",
+            springSecurityTest  : "org.springframework.security:spring-security-test:$springSecurityVersion",
+            rabbit              : "org.springframework.amqp:spring-rabbit:$springAmqpVersion",
+            batchCore           : "org.springframework.batch:spring-batch-core:$springBatchVersion",
+            batchIntegration    : "org.springframework.batch:spring-batch-integration:$springBatchVersion",
+            integrationFile     : "org.springframework.integration:spring-integration-file:$springIntegrationVersion"
+    ]
+
+    hibernate = [
+            validator: "org.hibernate:hibernate-validator:$hibernateValidatorVersion",
+            jpaModelGen: "org.hibernate:hibernate-jpamodelgen:$hibernateVersion",
+            ehcache: "org.hibernate:hibernate-ehcache:$hibernateVersion",
+            em: "org.hibernate:hibernate-entitymanager:$hibernateVersion",
+            core: "org.hibernate:hibernate-core:$hibernateVersion",
+            envers: "org.hibernate:hibernate-envers:$hibernateVersion",
+            jpaApi: "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$hibernateJpaVersion",
+            querydslapt: "com.mysema.querydsl:querydsl-apt:2.7.1",
+            tx: "com.atomikos:transactions-hibernate4:$atomikosVersion",
+            hikari: "com.zaxxer:HikariCP:$hikariVersion",
+            ps6Spy: "p6spy:p6spy:$ps6SpyVersion"
+
+    ]
+
+
+    boot = [
+            springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
+            starter: "org.springframework.boot:spring-boot-starter:$springBootVersion",
+            starterWeb: "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
+            actuator: "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
+            starterTest: "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+            starterAop: "org.springframework.boot:spring-boot-starter-aop:$springBootVersion",
+            starterJdbc: "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion",
+            starterJpa: "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion",
+            starterJta: "org.springframework.boot:spring-boot-starter-jta-atomikos:$springBootVersion",
+            starterJms: "org.springframework.boot:spring-boot-starter-artemis:$springBootVersion",
+            starterRabbitmq: "org.springframework.boot:spring-boot-starter-amqp:$springBootVersion",
+            starterThyme: "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion",
+            starterSecurity: "org.springframework.boot:spring-boot-starter-security:$springBootVersion",
+            starterBatch: "org.springframework.boot:spring-boot-starter-batch:$springBootVersion",
+            starterWebflux: "org.springframework.boot:spring-boot-starter-webflux:$springBootVersion"
+
+    ]
+
+    testing = [
+            junit5Engine: "org.junit.jupiter:junit-jupiter-engine:$junit5Version",
+            junit5Api: "org.junit.jupiter:junit-jupiter-api:$junit5Version",
+            junit5Params: "org.junit.jupiter:junit-jupiter-params:$junit5Version",
+            junit5Platform: "org.junit.platform:junit-platform-launcher:$junitPlatformRunner",
+
+            mockito: "org.mockito:mockito-all:$mockitoVersion",
+            easymock: "org.easymock:easymock:3.4",
+            jmock: "org.jmock:jmock:2.8.2",
+            hamcrestCore: "org.hamcrest:hamcrest-core:$hamcrestVersion",
+            hamcrestLib: "org.hamcrest:hamcrest-library:$hamcrestVersion",
+            hamcrestAll: "org.hamcrest:hamcrest-all:$hamcrestVersion",
+            dbunit: "org.dbunit:dbunit:$dbunitVersion",
+            assertJ: "org.assertj:assertj-core:$assertjVersion"
+    ]
+
+    misc = [
+            slf4jJcl: "org.slf4j:jcl-over-slf4j:$slf4jVersion",
+            groovy: "org.codehaus.groovy:groovy-all:$groovyVersion",
+            inject: "javax.inject:javax.inject:1",
+            validation: "javax.validation:validation-api:$javaxValidationVersion",
+            aspectjweaver: "org.aspectj:aspectjweaver:$aspectjVersion",
+            aspectjrt: "org.aspectj:aspectjrt:$aspectjVersion",
+            lang3: "org.apache.commons:commons-lang3:3.6",
+            guava: "com.google.guava:guava:$guavaVersion",
+            joda: "joda-time:joda-time:$jodaVersion",
+            usertype: "org.jadira.usertype:usertype.core:$utVersion",
+            artemis: "org.apache.activemq:artemis-jms-server:2.1.0",
+            javaEl: "javax.el:javax.el-api:$javaElVersion",
+            glassfishEl: "org.glassfish:javax.el:$glasshfishELVersion",
+            jms: "javax.jms:javax.jms-api:$jmsVersion",
+            artemisClient: "org.apache.activemq:artemis-jms-client:$artemisVersion",
+            artemisServer: "org.apache.activemq:artemis-jms-server:$artemisVersion",
+            hornetq: "org.hornetq:hornetq-jms-client:$hornetqVersion",
+            castor: "org.codehaus.castor:castor-xml:$castorVersion",
+            jacksonDatabind: "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
+            jacksonCore: "com.fasterxml.jackson.core:jackson-core:$jacksonVersion",
+            jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion",
+            jacksonDataformat: "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion",
+            jacksonDatatypejdk8: "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion",
+            jacksonDatatypejsr310: "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion",
+            jacksonModule: "com.fasterxml.jackson.module:jackson-module-jsonSchema:$jacksonVersion",
+            jacksonDatatypeJoda: "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion",
+            poi: "org.apache.poi:poi:$poiVersion",
+            io: "commons-io:commons-io:2.6",
+    ]
+
+    web = [
+            tiles: "org.apache.tiles:tiles-jsp:$tilesVersion",
+            jstl: "jstl:jstl:1.2",
+            bootstrap: "org.webjars:bootstrap:$bootstrapVersion",
+            jQuery: "org.webjars:jquery:$jQueryVersion",
+            thymeSecurity: "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeSecurityVersion",
+            tomcatWsApi: "org.apache.tomcat:tomcat-websocket-api:$twsVersion",
+            tomcatWsEmbed: "org.apache.tomcat.embed:tomcat-embed-websocket:$twsVersion",
+            httpclient: "org.apache.httpcomponents:httpclient:$httpclientVersion",
+            websocket: "javax.websocket:javax.websocket-api:1.1",
+            servlet: "javax.servlet:javax.servlet-api:4.0.1",
+            jstlServlet: "javax.servlet:jstl:1.2",
+            jspApi: "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1"
+    ]
+
+    tomcatServer = [
+            tomcat: "org.apache.tomcat:tomcat-catalina",
+
+    ]
+
+    react = [
+            projReactorIpc: "io.projectreactor.ipc:reactor-netty:0.7.0.M1",
+    ]
+
+    db = [
+            mysql: "mysql:mysql-connector-java:$mysqlVersion",
+            derby: "org.apache.derby:derby:$derbyVersion",
+            dbcp2: "org.apache.commons:commons-dbcp2:$dbcpVersion",
+            dbcp: "commons-dbcp:commons-dbcp:1.4",
+            h2: "com.h2database:h2:$h2Version",
+            hsqldb: "org.hsqldb:hsqldb:2.4.0",
+            postgres: "org.postgresql:postgresql:$postgresVersion"
+    ]
+
+    log = [
+            log4jDependency: "log4j:log4j:$log4j",
+            log4jExtras: "log4j:apache-log4j-extras:$log4j",
+            log4j2Api: "org.apache.logging.log4j:log4j-api:$log4j2Api",
+            log4jCore: "org.apache.logging.log4j:log4j-core:$log4j2Api",
+            disruptor: "com.lmax:disruptor:$disruptor",
+            slf4jApi: "org.slf4j:slf4j-api:$slf4jApiVersion",
+            logbackClassic: "ch.qos.logback:logback-classic:$logbackVersion",
+            logbackCore: "ch.qos.logback:logback-core:$logbackVersion",
+            slf4jSimple: "org.slf4j:slf4j-simple:$slf4jSimple"
+    ]
+
+    json = [
+            gson: "com.google.code.gson:gson:$gsonVersion"
+    ]
+
+    utils = [
+            lombok            : "org.projectlombok:lombok:$lombockVersion",
+            mapstructJdk8     : "org.mapstruct:mapstruct-jdk8:$mapstructVersion",
+            mapstructProcessor: "org.mapstruct:mapstruct-processor:$mapstructVersion",
+            jaxbApi           : "javax.xml:jaxb-api:$jaxbApiVersion",
+            jaxbImpl          : "com.sun.xml.bind:jaxb-impl:$jaxbVersion",
+            jaxbCore          : "com.sun.xml.bind:jaxb-core:$jaxbVersion",
+            vavr              : "io.vavr:vavr:$vavrVersion"
+    ]
+
+    javaee = [
+            javaxAnnotation: "javax.annotation:javax.annotation-api:$javaxAnnotation"
+    ]
+
+    reactive = [
+            rxJava: "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    ]
+
+    jetty = [
+            jettyServer: "org.eclipse.jetty:jetty-server:$jettyVersion",
+            jettyServlet: "org.eclipse.jetty:jetty-servlet:$jettyVersion",
+            jettyWebapp: "org.eclipse.jetty:jetty-webapp:$jettyVersion",
+            jettyUtil: "org.eclipse.jetty:jetty-util:$jettyVersion",
+            apacheJsp: "org.eclipse.jetty:apache-jsp:$jettyVersion"
+    ]
+
+    tomcatEmbedded = [
+            tomcatEmbedJasper: "org.apache.tomcat.embed:tomcat-embed-jasper:$embeddedTomcat"
+    ]
+
+    dependencyInjection = [
+            guice: "com.google.inject:guice:$guiceVersion"
+    ]
+
+    jmh = [
+            jmhCore: "org.openjdk.jmh:jmh-core:$jmhCore",
+            jmhGenerator: "org.openjdk.jmh:jmh-generator-annprocess:$jmhCore"
+    ]
+
+
+}

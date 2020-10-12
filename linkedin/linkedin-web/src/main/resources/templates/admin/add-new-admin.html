@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add new admin</title>
+</head>
+<body>
+<h1>Add new admin</h1>
+<form th:action="@{/admins/add-new-admin}" th:object="${adminForm}" method="POST">
+    <label th:for="name">Name:</label>
+    <input type="text" th:field="*{name}" />
+    <br/>
+    <label th:for="email">Email:</label>
+    <input type="text" th:field="*{email}" />
+    <br/>
+    <label th:for="password">Password:</label>
+    <input type="text" th:field="*{password}" />
+    <br/>
+    <input type="submit" value="Add new admin"/>
+</form>
+</body>
+</html>

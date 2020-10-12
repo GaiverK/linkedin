@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div class="compny-profile">
+        <div th:replace="mainlayout :: page-name(name='Create group')"></div>
+        <div class="row pt30">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-black" th:action="@{/groups/create-group}" method="post">
+                    <!--                    todo session user id-->
+                    <input type="hidden" name="ownerId" th:value="${member.id}">
+                    <input type="hidden" name="ownerProfileId" th:value="${member.profileId}">
+                    <input type="hidden" name="ownerName" th:value="${member.name}">
+                    <label>Name</label>
+                    <input type="text" name="name">
+                    <label>Description</label>
+                    <textarea name="description" cols="40" rows="5" placeholder="Description"></textarea>
+                    <input type="submit" class="btn mb20 btn-medium btn-primary" value="Create group">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

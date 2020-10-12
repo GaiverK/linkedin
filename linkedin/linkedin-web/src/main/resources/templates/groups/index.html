@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div th:replace="mainlayout :: page-name(name='Groups list')"></div>
+    <div class="pb30"></div>
+    <div class="container pb30">
+        <div class="row">
+            <div>
+                <a data-toggle="tooltip" data-placement="top" title="This is not pharmacy:)" href="/groups/create-group"
+                   class="addGroup green-tooltip"><img src="/images/addjob.png" alt=""></a>
+            </div>
+            <div th:each="group : ${groups}" class="col-sm-4">
+                <div class="uou-block-6a rounded">
+                    <a th:href="@{/groups/single/{id}(id=${group.id})}">
+                        <img src="/img/member-2.png" alt="">
+                    </a>
+                    <h6 th:text="${group.name}">Name</h6>
+                    <p th:text="${group.description}">Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

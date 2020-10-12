@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div class="profile-company-content user-profile main-user" data-bg-color="f5f5f5">
+        <div class="container">
+            <h2 class="text-center">Companies <a th:href="@{/companies/add-new-company}"
+                                                 class="text-success add-button"><i class="fa fa-plus"></i></a></h2>
+            <div id="companies" class="tab-pane fade active in">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Professional Details -->
+                        <div class="sidebar">
+                            <div th:if="${not #lists.isEmpty(companies)}" class="col-md-4"
+                                 th:each="company : ${companies}">
+                                <!-- Company Information -->
+                                <div class="sidebar">
+                                    <div class="sidebar-thumbnail"><a
+                                            th:href="@{/companies/{id}(id=${company.id})}"><img
+                                            th:src="@{/images/company-thumb.jpg}" alt=""></a></div>
+                                    <div class="sidebar-information">
+                                        <ul class="single-category">
+                                            <li class="row">
+                                                <h6 class="title col-xs-6" th:text="${company.name}">Name</h6>
+                                                <span class="subtitle col-xs-6 text-right" th:text="${company.type}">Type</span>
+                                            </li>
+                                            <li class="row">
+                                                <p class="col-md-12" th:text="${company.description}">Description</p>
+                                            <li class="row">
+                                                <h6 class="title col-xs-6">Number of Employees</h6>
+                                                <span class="subtitle col-xs-6 text-right"
+                                                      th:text="${company.companySize}">Size</span>
+                                            </li>
+                                            <li class="row">
+                                                <h6 class="title col-xs-6">Number of Followers</h6>
+                                                <span class="subtitle col-xs-6 text-right"
+                                                      th:text="${company.followers != null} ? ${#lists.size(company.followers)} : '0'"></span>
+                                            </li>
+                                            <li class="row">
+                                                <h6 class="title col-xs-6">Jobs posted</h6>
+                                                <span class="subtitle col-xs-6 text-right"
+                                                      th:text="${company.postedJobs != null} ? ${#lists.size(company.postedJobs)} : '0'"></span>
+                                            </li>
+                                            <li class="row">
+                                                <h6 class="title col-xs-6">Jobs applied</h6>
+                                                <span class="subtitle col-xs-6 text-right"
+                                                      th:text="${company.appliedJobs != null} ? ${#lists.size(company.appliedJobs)} : '0'"></span>
+                                            </li>
+                                            <li class="row">
+                                                <!--                                                    todo add session attr member.id-->
+                                                <button memberid="2" th:attr="companyid=${company.id}"
+                                                        class="btn mb20 btn-small btn-success col-md-4 flwc">follow
+                                                </button>
+                                                <!--                                                    todo add session attr member.id-->
+                                                <button memberid="2" th:attr="companyid=${company.id}"
+                                                        class="btn mb20 btn-small btn-error  col-md-4 uflwc">unfollow
+                                                </button>
+                                                <a th:href="@{/companies/update-company/{id}(id=${company.id})}">
+                                                    <button
+                                                            class="btn mb20 btn-small btn-info col-md-4">edit
+                                                    </button>
+                                                </a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-center" th:unless="${not #lists.isEmpty(companies)}">nothing was found</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

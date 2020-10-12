@@ -1,0 +1,52 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+
+buildscript {
+    apply from: "${rootProject.projectDir}/buildSrc/repositories.gradle"
+    repositories extRepositories
+    apply from: "${rootProject.projectDir}/buildSrc/buildscript-dependencies.gradle"
+    dependencies extDependencies
+}
+
+group 'com.ra.course'
+version '1.0-SNAPSHOT'
+
+configure(allprojects) { project ->
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: "net.saliman.properties"
+    apply plugin: 'nebula.optional-base'
+    apply plugin: 'io.spring.dependency-management'
+    //apply plugin: 'org.springframework.boot'
+
+    apply from: "${rootProject.projectDir}/buildSrc/dependencies.gradle"
+    apply from: "${rootProject.projectDir}/buildSrc/analyze.gradle"
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    repositories extRepositories
+
+    dependencyManagement {
+        imports {
+            mavenBom SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+    test {
+        useJUnitPlatform {
+            includeEngines 'junit-jupiter'
+        }
+        testLogging {
+            events 'PASSED', 'FAILED', 'SKIPPED'
+        }
+        failFast = false
+    }
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+
+wrapper {
+    version = '6.3'
+}

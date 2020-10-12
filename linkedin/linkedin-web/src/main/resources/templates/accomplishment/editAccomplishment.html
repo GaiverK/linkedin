@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div class="compny-profile">
+        <div th:replace="mainlayout :: page-name(name='Edit accomplishment')"></div>
+        <div class="row pt30">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-black" th:action="@{/accomplishments/update/{id}(id=${accomplishmentDto.id})}"
+                      th:object="${accomplishmentDto}" method="post">
+                    <input type="hidden" th:name="profileId" th:value="*{profileId}">
+                    <input type="hidden" th:name="id" th:value="*{id}">
+                    <label>Title</label>
+                    <input type="text" name="title" th:value="*{title}" placeholder="Title">
+                    <label>Date</label>
+                    <input type="text" class="dtpick" name="date" th:value="*{date}" placeholder="dd-MM-yyyy">
+                    <label>Description</label>
+                    <textarea th:field="*{description}" name="description" cols="40" rows="5"
+                              placeholder="Description"></textarea>
+                    <input type="submit" class="btn mb20 btn-medium btn-primary" value="Save accomplishment">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

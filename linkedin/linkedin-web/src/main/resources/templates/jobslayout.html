@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="profile-bnr user-profile-bnr" th:fragment="page-info(pageName)">
+    <div class="container">
+        <div class="pull-left">
+            <h2 th:text="${pageName}"></h2>
+        </div>
+    </div>
+</div>
+<div id="jobs" class="tab-pane fade active in" th:fragment="jobs(jobs)">
+    <div class="listing listing-1">
+        <div class="listing-section">
+            <div class="listing-ver-3" th:each="job : ${jobs}">
+                <div class="listing-heading">
+                    <h5 class="noinline"><span th:text="${job.employmentType}">Front-End Web Developer</span>
+                        <span class="float-right">
+                            <i class="fa fa-user" style="color: #33cc5b"></i>
+                            <i th:text="${#lists.size(job.acceptedMembers)}">83</i>
+                            <i class="fa fa-user" style="color: #5dade0"></i>
+                            <i th:text="${#lists.size(job.members)}">83</i>
+                        </span>
+                    </h5>
+                </div>
+                <div class="listing-inner">
+                    <div class="listing-content">
+                        <h6 class="title-company"><a th:href="@{/companies/{id}(id=${job.companyId})}"><span
+                                th:text="${job.companyName}"></span></a></h6>
+                        <span class="location"> <i class="fa fa-map-marker"></i></span> <span th:text="${job.location}">Manhattan, New york, USA </span>
+                        <p th:text="${job.description}"></p>
+                        <form th:action="@{/jobs/{id}(id=${job.id})}" method="post" class="jobsform">
+                            <input type="hidden" name="memberId" value="1">
+                            <input type="hidden" name="action" class="act" value="apply">
+                            <button class="btn btn-info float-right" action="save" style="margin-left: 10px;">save
+                            </button>
+                            <button class="btn btn-success float-right" action="apply">apply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,31 @@
+rootProject.name = 'venus'
+include 'design_facebook'
+include 'design_facebook:fb-model'
+include 'design_facebook:fb-services'
+include 'design_facebook:fb-persistence'
+include 'design_facebook:fb-web'
+
+include 'linkedin'
+include 'linkedin:linkedin-model'
+include 'linkedin:linkedin-persistence'
+include 'linkedin:linkedin-service'
+include 'linkedin:linkedin-web'
+
+include 'stock-brokerage-system'
+include 'stock-brokerage-system:stock-model'
+include 'stock-brokerage-system:stock-persistance'
+include 'stock-brokerage-system:stock-services'
+include 'stock-brokerage-system:stock-web'
+
+include 'hotel'
+include 'hotel:hotel-model'
+include 'hotel:hotel-service'
+include 'hotel:hotel-persistence'
+
+include 'restaurant'
+include 'restaurant:restaurant-model'
+include 'restaurant:restaurant-persistence'
+include 'restaurant:restaurant-service'
+include 'restaurant:restaurant-web'
+include 'restaurant:restaurant-web'
+

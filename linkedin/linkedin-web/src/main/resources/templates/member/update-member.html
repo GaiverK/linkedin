@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div class="compny-profile">
+        <div th:replace="mainlayout :: page-name(name='Update member')"></div>
+        <div class="row pt30">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-black" th:action="@{/members/update-member/{id}(id=${updateMember.id})}"
+                      method="post">
+                    <label th:for="name">Name:</label>
+                    <input type="text" name="name" th:value="${updateMember.name}">
+                    <label th:for="email">Email:</label>
+                    <input type="text" name="email" th:value="${updateMember.email}">
+                    <label th:for="phone">Phone:</label>
+                    <input type="text" name="phone" th:value="${updateMember.phone}">
+                    <label th:for="headline">Headline:</label>
+                    <input type="text" name="headline" th:value="${updateMember.headline}">
+                    <input type="submit" class="btn mb20 btn-medium btn-primary" value="Update member">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

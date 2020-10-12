@@ -1,0 +1,32 @@
+project(':linkedin') {
+    configure(allprojects) { project ->
+        dependencies {
+            compileOnly "org.projectlombok:lombok:1.18.12"
+            annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+            testCompileOnly 'org.projectlombok:lombok:1.18.12'
+            testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+            compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.2'
+        }
+    }
+}
+
+project(':linkedin:linkedin-persistence') {
+    dependencies {
+        compile project(':linkedin:linkedin-model')
+    }
+}
+
+project(':linkedin:linkedin-service') {
+    dependencies {
+        compile project(':linkedin:linkedin-persistence')
+    }
+}
+
+project(':linkedin:linkedin-web') {
+    dependencies {
+        compile project(':linkedin:linkedin-service')
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.5.RELEASE'
+    }
+}

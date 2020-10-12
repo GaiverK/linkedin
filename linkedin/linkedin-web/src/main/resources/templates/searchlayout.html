@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="profile-company-content user-profile main-user" data-bg-color="f5f5f5"
+     th:fragment="content(members, companies, jobs)">
+    <div class="container">
+        <!-- Members List
+     ================================================= -->
+        <h2 class="text-center">Members</h2>
+        <div id="profile" class="tab-pane fade active in">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Professional Details -->
+                    <div class="sidebar">
+
+                        <!-- Similar -->
+                        <div th:if="${not #lists.isEmpty(members)}" class="similar col-md-6"
+                             th:each="member : ${members}">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="inn-simi"><img class="media-object" th:src="@{/images/sm-avatar.jpg}"
+                                                               alt=""> <a
+                                            th:href="@{/profiles/get/{id}(id=${member.profileId})}">Profile </a></div>
+                                </div>
+                                <div class="media-body">
+                                    <h5 th:text="${member.name}">Name</h5>
+                                    <p th:text="${member.headline}">SEO Specialist - New York, USA</p>
+                                    <span th:text="${#temporals.format(member.dateOfMembership, 'dd-MM-yyyy')}"></span>
+                                    <!-- Share -->
+                                    <!--                                <div class="share-w"><a href="user-profile(layout-1).html#."><i class="fa fa-bookmark-o"></i></a> <a href="user-profile(layout-1).html#."><i class="fa fa-envelope-o"></i></a> <a href="user-profile(layout-1).html#."><i class="fa fa-eye"></i></a></div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center" th:unless="${not #lists.isEmpty(members)}">nothing was found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center">Companies</h2>
+        <div id="companies" class="tab-pane fade active in">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Professional Details -->
+                    <div class="sidebar">
+                        <div th:if="${not #lists.isEmpty(companies)}" class="col-md-4" th:each="company : ${companies}">
+                            <!-- Company Information -->
+                            <div class="sidebar">
+                                <div class="sidebar-thumbnail"><a th:href="@{/companies/{id}(id=${company.id})}"><img
+                                        th:src="@{/images/company-thumb.jpg}" alt=""></a></div>
+                                <div class="sidebar-information">
+                                    <ul class="single-category">
+                                        <li class="row">
+                                            <h6 class="title col-xs-6" th:text="${company.name}">Name</h6>
+                                            <span class="subtitle col-xs-6 text-right"
+                                                  th:text="${company.type}">Type</span>
+                                        </li>
+                                        <li class="row">
+                                            <p class="col-md-12" th:text="${company.description}">Description</p>
+                                        <li class="row">
+                                            <h6 class="title col-xs-6">Number of Employees</h6>
+                                            <span class="subtitle col-xs-6 text-right"
+                                                  th:text="${company.companySize}">Size</span>
+                                        </li>
+                                        <li class="row">
+                                            <h6 class="title col-xs-6">Number of Followers</h6>
+                                            <span class="subtitle col-xs-6 text-right"
+                                                  th:text="${company.followers != null} ? ${#lists.size(company.followers)} : '0'"></span>
+                                        </li>
+                                        <li class="row">
+                                            <h6 class="title col-xs-6">Jobs posted</h6>
+                                            <span class="subtitle col-xs-6 text-right"
+                                                  th:text="${company.postedJobs != null} ? ${#lists.size(company.postedJobs)} : '0'"></span>
+                                        </li>
+                                        <li class="row">
+                                            <h6 class="title col-xs-6">Jobs applied</h6>
+                                            <span class="subtitle col-xs-6 text-right"
+                                                  th:text="${company.appliedJobs != null} ? ${#lists.size(company.appliedJobs)} : '0'"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center" th:unless="${not #lists.isEmpty(companies)}">nothing was found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center">Jobs</h2>
+        <div id="jobs" class="tab-pane fade active in">
+            <div class="sidebar">
+                <div class="listing listing-1">
+                    <div class="listing-section">
+                        <div th:if="${not #lists.isEmpty(jobs)}" class="listing-ver-3" th:each="job : ${jobs}">
+                            <div class="listing-heading">
+                                <h5 th:text="${job.employmentType}">Front-End Web Developer</h5>
+                            </div>
+                            <div class="listing-inner">
+                                <div class="listing-content">
+                                    <h6 class="title-company" th:text="${job.company.name}">Mars Planet
+                                        Telecommunications Inc.</h6>
+                                    <span class="location" th:text="${job.location}"> <i class="fa fa-map-marker"></i> Manhattan, New york, USA </span><span
+                                        class="type-work full-time"
+                                        th:text="' ' + ${#temporals.format(job.dateOfPosting, 'dd-MM-yyyy')}"></span>
+                                    <p th:text="${job.description}">Proin gravida nibh vel velit auctor aliquet aenean
+                                        sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec
+                                        sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit
+                                        amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor
+                                        a ornare odio pellentesque habitant morbi tristique senectus et netus et
+                                        malesuada. <a href="http://new.uouapps.com/tiger-html/single_job.html">read
+                                            more</a></p>
+                                    <form th:action="@{/jobs/{id}(id=${job.id})}" method="post" class="jobsform">
+                                        <input type="hidden" name="memberId" value="1">
+                                        <input type="hidden" name="action" class="act" value="apply">
+                                        <button class="btn btn-info float-right" action="save"
+                                                style="margin-left: 10px;">save
+                                        </button>
+                                        <button class="btn btn-success float-right" action="apply">apply</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center" th:unless="${not #lists.isEmpty(jobs)}">nothing was found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

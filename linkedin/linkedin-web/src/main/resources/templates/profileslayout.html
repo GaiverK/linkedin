@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div class="compny-profile"
+        th:fragment="member-profile(profile)">
+    <!-- SUB Banner -->
+    <div class="profile-bnr user-profile-bnr">
+        <div class="container">
+            <div class="pull-left">
+                <h2 th:text="${profile.memberName}"></h2>
+                <h5 th:text="${profile.memberHeadline}"></h5>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Profile Company Content -->
+    <div th:attr="profid=${profile.id}" class="profile-company-content user-profile main-user" data-bg-color="f5f5f5">
+        <div class="container">
+            <div class="row">
+
+                <!-- Nav Tabs -->
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li class=""><a data-toggle="tab" href="user-profile(layout-1).html#profile"
+                                        aria-expanded="true">Profile</a></li>
+                        <li><a data-toggle="tab" href="#ajobs"
+                               th:text="'Applied Jobs (' + ${#lists.size(profile.memberAppliedJobPosting)} + ')'">Applied
+                            Jobs ()</a></li>
+                        <li><a data-toggle="tab" href="#sjobs"
+                               th:text="'Saved Jobs (' + ${#lists.size(profile.memberSavedJobs)} + ')'">Saved Jobs
+                            ()</a></li>
+                        <li><a data-toggle="tab" href="#contact">Send</a></li>
+                        <li><a data-toggle="tab" href="#incom">Messages</a></li>
+                        <li><a data-toggle="tab" href="#Con-tab">Friends</a></li>
+                        <li><a data-toggle="tab" href="#flowrs-tabs"
+                               th:text="'Followers (' + ${#lists.size(profile.memberFollowers)} + ')'">Followers
+                            (241)</a></li>
+                        <li><a data-toggle="tab" href="#foll-tabs"
+                               th:text="'Following (' + ${#lists.size(profile.memberFollowingMembers)} + ')'">Following</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="col-md-12">
+                    <div class="tab-content">
+
+                        <!-- PROFILE -->
+                        <div id="profile" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-main">
+                                        <h3>About
+                                            <div class="member_buttons mbrbut">
+                                                <!--                 todo add member.session.id                       -->
+                                                <button member_id="2" class="btn btn-success fmember"
+                                                        th:attr="follmemb=${profile.memberId}">
+                                                    follow
+                                                </button>
+                                                <button member_id="2" class="btn btn-error ufmember"
+                                                        th:attr="follmemb=${profile.memberId}">
+                                                    unFollow
+                                                </button>
+                                            </div>
+                                        </h3>
+                                        <div class="profile-in">
+                                            <div class="media-left">
+                                                <div class="img-profile">
+                                                    <img th:if="${profile.member.photo == null}" class="media-object"
+                                                         th:src="@{/images/avatar-3.jpg}" alt="">
+                                                    <img th:unless="${profile.member.photo == null}"
+                                                         class="media-object" th:src="${profile.member.photo}" alt="">
+                                                    <i class="upload_icon fa fa-image"></i>
+                                                </div>
+                                                <form action="/upload" id="upload_form" enctype="multipart/form-data"
+                                                      class="hidden" method="post">
+                                                    <input type="hidden" name="member_id"
+                                                           th:value="${profile.memberId}">
+                                                    <input type="file" id="file_upload" name="file">
+                                                    <input type="submit" id="sendfile" value="send file">
+                                                </form>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="javascript:void(0);" class="edit-but"><i
+                                                        class="fa fa-pencil edit-summ"></i></a>
+                                                <p th:text="${profile.summary}" class="summ-block"></p>
+                                                <div class="hidden summ-form">
+                                                    <form class="form-black" th:action="@{/profiles/get/{id}(id=${profile.id})}"
+                                                          th:object="${profile}" method="post">
+                                                        <input type="hidden" th:field="*{memberId}">
+                                                        <textarea th:field="*{summary}" cols="40" rows="5"></textarea>
+                                                        <input type="submit" class="btn mb20 btn-medium btn-primary" value="Save summary">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+
+                                    <!-- Skills -->
+                                    <div class="sidebar">
+                                        <h5 class="main-title">Skills
+                                                <a class="text-success" th:href="@{/skills/addNewSkill/{profileId}(profileId=${profile.id})}">
+                                                    <i class="fa fa-plus fa add-button"></i>
+                                                    </a>
+                                        </h5>
+                                        <div class="job-skills">
+
+                                            <!-- Logo Design -->
+                                            <ul class="row profId hidden" th:attrappend="profile=${profile.id}"></ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <!-- Educations -->
+                                    <div class="sidebar">
+                                        <h5 class="main-title">Educations
+                                            <a class="text-success"
+                                               th:href="@{/educations/addNewEducation/{profileId}(profileId=${profile.id})}">
+                                                <i class="fa fa-plus fa add-button"></i>
+                                            </a>
+                                        </h5>
+                                        <div class="educations row">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <!-- Experiences -->
+                                    <div class="sidebar">
+                                        <h5 class="main-title">Experiences
+                                            <a class="text-success"
+                                               th:href="@{/experiences/addNewExperience/{profileId}(profileId=${profile.id})}">
+                                                <i class="fa fa-plus fa add-button"></i>
+                                            </a>
+                                        </h5>
+                                        <div class="experiences row">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <!-- Accomplishments -->
+                                    <div class="sidebar">
+                                        <h5 class="main-title">Accomplishments
+                                            <a class="text-success"
+                                               th:href="@{/accomplishments/addNewAccomplishment/{profileId}(profileId=${profile.id})}">
+                                                <i class="fa fa-plus fa add-button"></i>
+                                            </a>
+                                        </h5>
+                                        <div class="accomplishments row">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <!-- Recommendations -->
+                                    <div class="sidebar">
+                                        <h5 class="main-title">Recommendations
+                                            <a class="text-success"
+                                               th:href="@{/recommendations/addNewRecommendation/{profileId}(profileId=${profile.id})}">
+                                                <i class="fa fa-plus fa add-button"></i>
+                                            </a>
+                                        </h5>
+                                        <div class="recommendations row">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- Jobs -->
+                        <div id="ajobs" class="tab-pane fade">
+
+                            <div class="listing listing-1">
+                                <div class="listing-section">
+                                    <div class="listing-ver-3" th:each="job : ${profile.memberAppliedJobPosting}">
+                                        <div class="listing-heading" style="background: #a5f1b9">
+                                            <h5 class="noinline"><span th:text="${job.employmentType}">Front-End Web Developer</span>
+                                            </h5>
+                                        </div>
+                                        <div class="listing-inner">
+                                            <div class="listing-content">
+                                                <h6 class="title-company"><a
+                                                        th:href="@{/companies/{id}(id=${job.company.id})}"><span
+                                                        th:text="${job.company.name}"></span></a></h6>
+                                                <span class="location"> <i class="fa fa-map-marker"></i></span> <span
+                                                    th:text="${job.location}">Manhattan, New york, USA </span>
+                                                <p th:text="${job.description}"></p>
+                                                <form th:action="@{/jobs/{id}(id=${job.id})}" method="post"
+                                                      class="jobsform">
+                                                    <input type="hidden" name="memberId" value="1">
+                                                    <input type="hidden" name="action" class="act" value="apply">
+                                                    <!--                                                    <button class="btn btn-info float-right" action="save" style="margin-left: 10px;">save</button>-->
+                                                    <!--                                                    <button class="btn btn-success float-right" action="apply">apply</button>-->
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="sjobs" class="tab-pane fade">
+
+                            <div class="listing listing-1">
+                                <div class="listing-section">
+                                    <div class="listing-ver-3" th:each="job : ${profile.memberSavedJobs}">
+                                        <div class="listing-heading" style="background: #8ed3ff">
+                                            <h5 class="noinline"><span th:text="${job.employmentType}">Front-End Web Developer</span>
+                                            </h5>
+                                        </div>
+                                        <div class="listing-inner">
+                                            <div class="listing-content">
+                                                <h6 class="title-company"><a
+                                                        th:href="@{/companies/{id}(id=${job.company.id})}"><span
+                                                        th:text="${job.company.name}"></span></a></h6>
+                                                <span class="location"> <i class="fa fa-map-marker"></i></span> <span
+                                                    th:text="${job.location}">Manhattan, New york, USA </span>
+                                                <p th:text="${job.description}"></p>
+                                                <form th:action="@{/members/__${profile.memberId}__/delete-job}"
+                                                      method="post">
+                                                    <input type="hidden" name="jobId" th:value="${job.id}"/>
+                                                    <input type="submit" class="btn btn-error" value="Delete"/>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div id="contact" class="tab-pane fade">
+                            <div class="profile-main">
+                                <h3>Contact to members</h3>
+                                <div class="profile-in">
+                                    <p>You can choose any members and send them message</p>
+                                    <form action="/members/send-message" method="post">
+                                        <select style="width: 100%" class="js-example-basic-multiple" name="members[]"
+                                                multiple="multiple">
+                                            <option th:each="contact : ${allMembers}" th:attr="value=${contact.id}"
+                                                    th:text="${contact.name} + '(' + ${contact.email} + ')'">Alabama
+                                            </option>
+                                        </select>
+                                        <textarea name="messageBody" placeholder="Your Message"></textarea>
+                                        <input type="hidden" name="authorId" th:value="${profile.memberId}">
+                                        <input type="hidden" name="profileId" th:value="${profile.id}">
+                                        <button class="btn btn-primary">Send message</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Messages -->
+                        <div id="incom" class="tab-pane fade">
+                            <div class="profile-main">
+                                <h3>Messages</h3>
+                                <div class="profile-in">
+                                    <!--                                    th each goes here-->
+                                    <div class="row" th:each="message : ${profile.member.incomingMessages}"
+                                         th:class="${message.authorId == profile.memberId} ? 'row right-message' : 'row'">
+                                        <div th:class="${message.authorId == profile.memberId} ? 'col-sm-offset-6 col-sm-6' : 'col-sm-6'">
+                                            <div class="uou-block-6b secondary"><img src="/images/message-member.png"
+                                                                                     alt="">
+                                                <div class="content">
+                                                    <h6 th:text="${message.authorName}"></h6>
+                                                    <p th:text="${message.messageBody}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--                                        <div class="col-sm-6 right-message">-->
+                                        <!--                                            <div class="uou-block-6b secondary"> <img src="img/member-2.png" alt="">-->
+                                        <!--                                                <div class="content">-->
+                                        <!--                                                    <h6>Jessica Walsh <span>Founder &amp; Web Designer</span></h6>-->
+                                        <!--                                                    <p>Veniam minus obcaecati, quos facere et quibusdam debitis iure voluptate libero voluptas dolorem praesentium rerum adipisci ad fuga, odio molestiae. Soluta quos vel pariatur nemo fugit repellat.</p>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="Con-tab" class="tab-pane fade">
+                            <div class="profile-main">
+                                <h3>Members</h3>
+                                <div class="profile-in">
+                                    <div class="folow-persons">
+                                        <ul>
+                                            <!-- MEMBER waiting -->
+                                            <li th:each="follower: ${profile.member.incomingConnectionInvitations}"
+                                                th:if="${follower.status == T(com.ra.course.linkedin.model.entity.other.ConnectionInvitationStatus).PENDING}">
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <!-- Check Box -->
+                                                        <div class="checkbox">
+                                                        </div>
+                                                        <!-- Name -->
+                                                        <div class="fol-name">
+                                                            <div class="avatar"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${follower.author.profileId})}"><img
+                                                                    th:src="@{/images/sm-avatar.jpg}" alt=""></a></div>
+                                                            <!--                                                                    todo add session member.id attr to from in to <i> tags-->
+                                                            <h6 style="line-height: 3;"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${follower.author.profileId})}"
+                                                                    th:text="${follower.author.name}"></a>&nbsp;&nbsp;<i
+                                                                    th:attr="to=${profile.member.id},from=${follower.author.Id}"
+                                                                    class="fa fa-thumbs-o-up add-button accbut addContact"></i>&nbsp;<i
+                                                                    th:attr="to=${profile.member.id},from=${follower.author.Id}"
+                                                                    class="fa fa-thumbs-o-down delete-but accbut rejectContact"></i>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Location -->
+                                                    <div class="col-xs-3 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${follower.author.headline}">San Francisco, USA</span>
+                                                    </div>
+                                                    <!-- Network -->
+                                                    <div class="col-xs-3 n-p-r"><span
+                                                            th:text="${#lists.size(follower.author.followers)} + ' Followers'">21 Followers</span>
+                                                        <span th:text="${#lists.size(follower.author.followingMembers)} + ' Following'">10 Following</span>
+                                                    </div>
+                                                    <!-- Connections -->
+                                                    <div class="col-xs-2 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${#lists.size(follower.author.sentConnectionInvitations)} + ' Sent connections'">31 Connections</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!--                                             MEMBER accepted (friends) -->
+                                            <li th:each="follower: ${profile.member.contacts}">
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <!-- Check Box -->
+                                                        <div class="checkbox">
+                                                            <!--                                                            <input id="checkbox3-1" class="styled" type="checkbox">-->
+                                                            <!--                                                            <label for="checkbox3-1"></label>-->
+                                                        </div>
+                                                        <!-- Name -->
+                                                        <div class="fol-name">
+                                                            <div class="avatar"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${follower.profileId})}"><img
+                                                                    th:src="@{/images/sm-avatar.jpg}" alt=""></a></div>
+                                                            <h6 style="line-height: 3;"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${follower.profileId})}"
+                                                                    th:text="${follower.name}"></a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Location -->
+                                                    <div class="col-xs-3 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${follower.headline}">San Francisco, USA</span>
+                                                    </div>
+                                                    <!-- Network -->
+                                                    <div class="col-xs-3 n-p-r"><span
+                                                            th:text="${#lists.size(follower.followers)} + ' Followers'">21 Followers</span>
+                                                        <span th:text="${#lists.size(follower.followingMembers)} + ' Following'">10 Following</span>
+                                                    </div>
+                                                    <!-- Connections -->
+                                                    <div class="col-xs-2 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${#lists.size(follower.sentConnectionInvitations)} + ' Sent connections'">31 Connections</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post -->
+                        <div id="flowrs-tabs" class="tab-pane fade">
+                            <div class="profile-main">
+                                <h3>Followers</h3>
+                                <div class="profile-in">
+                                    <div class="folow-persons">
+                                        <ul>
+
+                                            <!-- MEMBER -->
+                                            <li th:each="follower: ${profile.memberFollowers}">
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <!-- Check Box -->
+                                                        <div class="checkbox">
+                                                            <!--                                                            <input id="checkbox3-1" class="styled" type="checkbox">-->
+                                                            <!--                                                            <label for="checkbox3-1"></label>-->
+                                                        </div>
+                                                        <!-- Name -->
+                                                        <div class="fol-name">
+                                                            <div class="avatar"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${follower.profileId})}"><img
+                                                                    th:src="@{/images/sm-avatar.jpg}" alt=""></a></div>
+                                                            <h6 style="line-height: 3;"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${follower.profileId})}"
+                                                                    th:text="${follower.name}"></a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Location -->
+                                                    <div class="col-xs-3 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${follower.headline}">San Francisco, USA</span>
+                                                    </div>
+                                                    <!-- Network -->
+                                                    <div class="col-xs-3 n-p-r"><span
+                                                            th:text="${#lists.size(follower.followers)} + ' Followers'">21 Followers</span>
+                                                        <span th:text="${#lists.size(follower.followingMembers)} + ' Following'">10 Following</span>
+                                                    </div>
+                                                    <!-- Connections -->
+                                                    <div class="col-xs-2 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${#lists.size(follower.sentConnectionInvitations)} + ' Sent connections'">31 Connections</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post -->
+                        <div id="foll-tabs" class="tab-pane fade">
+                            <div class="profile-main">
+                                <h3>Following</h3>
+                                <div class="profile-in">
+                                    <div class="folow-persons">
+                                        <ul>
+
+                                            <!-- MEMBER -->
+                                            <li th:each="following: ${profile.memberFollowingMembers}">
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <!-- Check Box -->
+                                                        <div class="checkbox">
+                                                            <!--                                                            <input id="checkbox3-1" class="styled" type="checkbox">-->
+                                                            <!--                                                            <label for="checkbox3-1"></label>-->
+                                                        </div>
+                                                        <!-- Name -->
+                                                        <div class="fol-name">
+                                                            <div class="avatar"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${following.profileId})}"><img
+                                                                    th:src="@{/images/sm-avatar.jpg}" alt=""></a></div>
+                                                            <h6 style="line-height: 3;"><a
+                                                                    th:href="@{/profiles/get/{id}(id=${following.profileId})}"
+                                                                    th:text="${following.name}"></a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Location -->
+                                                    <div class="col-xs-3 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${following.headline}">San Francisco, USA</span>
+                                                    </div>
+                                                    <!-- Network -->
+                                                    <div class="col-xs-3 n-p-r"><span
+                                                            th:text="${#lists.size(following.followers)} + ' Followers'">21 Followers</span>
+                                                        <span th:text="${#lists.size(following.followingMembers)} + ' Following'">10 Following</span>
+                                                    </div>
+                                                    <!-- Connections -->
+                                                    <div class="col-xs-2 n-p-r n-p-l"><span style="line-height: 3;"
+                                                                                            th:text="${#lists.size(following.sentConnectionInvitations)} + ' Sent connections'">31 Connections</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

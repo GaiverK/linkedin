@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div class="compny-profile">
+        <!-- SUB Banner -->
+        <div class="profile-bnr">
+            <div class="container">
+                <!-- User Iinfo -->
+                <div class="user-info">
+                    <h1><span th:text="${company.name}"></span>&nbsp;<a data-toggle="tooltip" data-placement="top"
+                                                                        title=""
+                                                                        data-original-title="Verified Member"><img
+                            src="/images/icon-ver.png" alt=""></a></h1>
+                    <h6 th:text="${company.type}"></h6>
+                    <p th:text="${company.description}"></p>
+                    <!-- Followers -->
+                    <div class="followr">
+                        <ul class="row">
+                            <li class="col-sm-6">
+                                <p>Followers <span th:text="'('+${#lists.size(company.followers)}+')'">(31)</span></p>
+                            </li>
+                            <li class="col-sm-6">
+                                <p>Posted jobs <span th:text="'('+${#lists.size(company.postedJobs)}+')'">(38)</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="add_job">
+                    <form th:action="@{/companies/__${id}__/jobs/add-job/}" method="post">
+                        <label th:for="employmentType">Employment type:</label>
+                        <input type="text" name="employmentType"/>
+                        <label th:for="location">Location:</label>
+                        <input type="text" name="location"/>
+                        <label th:for="description">Description:</label>
+                        <textarea type="text" name="description"></textarea>
+                        <input type="submit" class="btn btn-success float-right" value="Post job"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Company Content -->
+        <div class="profile-company-content main-user" data-bg-color="f5f5f5">
+            <div class="container">
+                <div class="row">
+                    <!-- SIDE BAR -->
+                    <div class="col-md-4">
+                        <!-- Company Information -->
+                        <div class="sidebar">
+                            <h5 class="main-title">Company Information</h5>
+                            <div class="sidebar-thumbnail"><img src="/images/company-thumb.jpg" alt=""></div>
+                            <div class="sidebar-information">
+                                <ul class="single-category">
+                                    <li class="row">
+                                        <h6 class="title col-xs-6">Name</h6>
+                                        <span class="subtitle col-xs-6" th:text="${company.name}"></span></li>
+                                    <li class="row">
+                                        <h6 class="title col-xs-6">Type</h6>
+                                        <span class="subtitle col-xs-6" th:text="${company.type}"></span></li>
+                                    <li class="row">
+                                        <h6 class="title col-xs-6">Number of Employees</h6>
+                                        <span class="subtitle col-xs-6" th:text="${company.companySize}"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Content -->
+                    <div class="col-md-8">
+                        <div class="tab-content">
+                            <!-- Jobs -->
+                            <div id="jobs" class="tab-pane fade active in">
+                                <div class="listing listing-1">
+                                    <div class="listing-section">
+                                        <div class="listing-ver-3" th:each="job : ${company.postedJobs}">
+                                            <div class="listing-heading">
+                                                <h5 class="noinline"><span th:text="${job.employmentType}">Front-End Web Developer</span>
+                                                    <span class="float-right"
+                                                          th:text="${#temporals.format(job.dateOfPosting, 'dd-MM-yyyy')}"></span>
+                                                </h5>
+                                            </div>
+                                            <div class="listing-inner">
+                                                <div class="listing-content">
+                                                    <h6 class="title-company"><a
+                                                            th:href="@{/companies/{id}(id=${job.companyId})}"><span
+                                                            th:text="${job.companyName}"></span></a></h6>
+                                                    <span class="location"> <i class="fa fa-map-marker"></i></span>
+                                                    <span
+                                                            th:text="${job.location}">Manhattan, New york, USA </span>
+                                                    <p th:text="${job.description}"></p>
+                                                    <form th:action="@{/jobs/{id}(id=${job.id})}" method="post"
+                                                          class="jobsform">
+                                                        <!--                                                        todo add session attr member id-->
+                                                        <input type="hidden" name="memberId" value="1">
+                                                        <input type="hidden" name="action" class="act" value="apply">
+                                                        <button class="btn btn-info float-right" action="save"
+                                                                style="margin-left: 10px;">save
+                                                        </button>
+                                                        <button class="btn btn-success float-right" action="apply">
+                                                            apply
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>
+
+
+

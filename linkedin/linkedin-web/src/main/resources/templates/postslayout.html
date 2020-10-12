@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div class="compny-profile">
+
+    <div class="profile-bnr user-profile-bnr" th:fragment="page-info(pageName)">
+        <div class="container">
+            <div class="pull-left">
+                <h2 th:text="${pageName}"></h2>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="profile-company-content user-profile main-user" th:fragment="member-posts(posts)" data-bg-color="f5f5f5">
+        <div class="container">
+
+            <!-- Post Create Box
+================================================= -->
+            <div class="create-post">
+                <form th:action="@{/posts/addNewPost}" method="post">
+                    <div class="row">
+                        <div class="col-md-10 col-sm-10">
+                            <div class="form-group">
+                        <textarea name="text" cols="30" rows="5" class="form-control"
+                                  placeholder="Write what you wish"></textarea>
+                                <!--       Todo Add session attr member id     -->
+                                <input type="hidden" name="authorId" value="1">
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <div class="tools">
+                                <button class="btn btn-primary pull-right">Publish</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- Post Create Box End-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div id="blog-tab" class="tab-pane fade active in">
+                            <div class="profile-main">
+                                <h3>Blog Post</h3>
+                                <div class="profile-in">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <article class="uou-block-7f col-md-6" th:each="post:${posts}">
+                                                <img th:src="@{/img/blog-image-1.jpg}" alt="" class="thumb">
+                                                <div class="meta"><span class="comments"
+                                                                        th:text="${post.commentsSize} + ' Comments'">Comments</span>
+                                                </div>
+                                                <h1><a th:href="@{/profiles/get/{id}(id=${post.profileId})}"
+                                                       th:text="${post.authorName}"></a></h1>
+                                                <p th:text="${#strings.abbreviate(post.text,150)}"></p>
+                                                <a th:href="@{/posts/singlePost/{id}(id=${post.id})}"
+                                                   class="btn btn-small btn-primary">Read More</a>
+                                            </article>
+
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                    <!-- end blog-content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

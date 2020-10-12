@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="profile-company-content user-profile main-user" data-bg-color="f5f5f5"
+     th:fragment="content(members)">
+    <section class="pro-mem">
+        <div class="container pb30">
+
+            <h2 class="text-center">Members</h2>
+            <div id="profile" class="tab-pane fade active in">
+                <div class="row">
+                    <div th:if="${not #lists.isEmpty(members)}" class="col-sm-4" th:each="member : ${members}">
+                        <div class="uou-block-6a single_member"><a
+                                th:href="@{/profiles/get/{id}(id=${member.profileId})}"><img
+                                th:src="@{/images/member-1.png}" alt=""></a>
+                            <a class="single-member-link" th:href="@{/members/update-member/{id}(id=${member.Id})}"><i
+                                    style="font-size: 24px !important;" class="fa fa-pencil edit-but"></i></a>
+                            <h6><span class="h6class" th:text="${member.name}"></span><span
+                                    th:text="${member.headline}"></span></h6>
+                            <p><span th:text="${#temporals.format(member.dateOfMembership, 'dd-MM-yyyy')}"></span></p>
+                            <div class="member_buttons">
+                                <!-- todo add session member.id to from-->
+                                <a href="#" class="btn btn-info add-friend" from="1" th:attr="to=${member.id}">friend
+                                </a>
+                                <!--                 todo add member.session.id                       -->
+                                <button member_id="2" th:attr="follmemb=${member.Id}" class="btn btn-success fmember">
+                                    follow
+                                </button>
+                                <button member_id="2" th:attr="follmemb=${member.Id}" class="btn btn-error ufmember">
+                                    unFollow
+                                </button>
+                            </div>
+                        </div>
+                        <!-- end .uou-block-6a -->
+                    </div>
+                    <p class="text-center" th:unless="${not #lists.isEmpty(members)}">nothing was found</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</html>

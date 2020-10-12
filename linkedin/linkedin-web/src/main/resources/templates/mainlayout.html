@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Linkedin - Social Network</title>
+    <link rel="shortcut icon" href="/images/lin.png" type="image/png">
+    <!-- Style Sheet -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main-style.css}">
+    <link rel="stylesheet" th:href="@{/css/select2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/js/plugins/toaster/toastr.min.css}">
+    <link rel="stylesheet" th:href="@{/js/plugins/datepicker/bootstrap-datetimepicker.min.css}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div id="main-wrapper">
+    <div class="box-shadow-for-ui" th:fragment="navigation">
+        <div class="uou-block-2b">
+            <div class="container"><a th:href="@{/}" class="logo"><img th:src="@{/images/logolinkedin.png}" alt=""></a>
+                <a
+                        href="index.html#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
+                <nav class="nav">
+                    <ul class="sf-menu">
+                        <li class="active"><a href="index.html"><i class="fa  fa-home"></i></a></li>
+                        <li><a href="#">Members</a>
+                            <ul>
+                                <li><a th:href="@{/members/get-all-members}">Members</a></li>
+                                <li><a th:href="@{/groups}">Groups</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/jobs/all}">Jobs</a></li>
+                        <li><a th:href="@{/companies/get-all-companies}">Companies</a></li>
+                        <li><a th:href="@{/posts/getAllPosts}">Posts</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- end .uou-block-2b -->
+    </div>
+
+        <!--  Other page name  -->
+    <div class="profile-bnr sub-bnr user-profile-bnr" th:fragment="page-name(name)">
+        <div class="position-center-center">
+            <div class="container">
+                <h2 th:text="${name}">Our name</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME PRO-->
+    <div class="home-pro">
+
+        <!-- PRO BANNER HEAD -->
+        <div class="banr-head" th:fragment="logReg">
+            <div class="container">
+                <div class="row">
+
+                    <!-- CONTENT -->
+                    <div class="col-sm-7">
+                        <div class="text-area">
+                            <div class="position-center-center col-md-10">
+                                <h1> Here comes the social networking platform that you’ve been waiting for</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORM SECTION -->
+                    <div class="col-sm-5">
+                        <div class="login-sec">
+
+                            <!-- TABS -->
+                            <div class="uou-tabs">
+                                <ul class="tabs">
+                                    <li class="regbutton"><a href="index.html#register">Register Now</a></li>
+                                    <li class="active logbutton"><a href="index.html#log-in">Member Login</a></li>
+                                </ul>
+
+                                <!-- REGISTER -->
+                                <div class="content">
+                                    <div id="register">
+                                        <form th:action="@{/members/register-new-member}" method="POST">
+                                            <input type="text" name="name" placeholder="Full Name">
+                                            <input type="email" name="email" placeholder="Email Address">
+                                            <input type="password" name="password" placeholder="Password">
+                                            <button type="submit">Register</button>
+                                        </form>
+                                    </div>
+
+                                    <!-- LOGIN -->
+                                    <div id="log-in" class="active">
+                                        <form th:action="@{/members/login}" method="post">
+                                            <input type="email" name="email" placeholder="Email Address">
+                                            <input type="password" name="password" placeholder="Password">
+                                            <button type="submit">Login</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICES -->
+        <section class="services" th:fragment="services(mc,mp,cc)">
+
+            <!-- SERVICES ROW -->
+            <ul class="row">
+
+                <!-- SECTION -->
+                <li class="col-md-4">
+                    <div class="ser-inn">
+                        <i class="fa fa-book"></i>
+                        <h4>Created posts </h4>
+                        <i class="fa fa-book big"></i>
+                        <div class="col-md-12 ccircle">
+                            <div class="round-counter-single">
+                                <div class="c100 green"
+                                     th:classappend="'p' +  ${#numbers.formatDecimal( (mp / (mp + 5 * 1.0) * 100), 0,0,'NONE' )} ">
+                                    <span th:text="${mp}">100</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- SECTION -->
+                <li class="col-md-4">
+                    <div class="ser-inn">
+                        <i class="fa fa-user"></i>
+                        <h4>Joined members </h4>
+                        <i class="fa fa-user big"></i>
+                        <div class="col-md-12 ccircle">
+                            <div class="round-counter-single">
+                                <div class="c100 green"
+                                     th:classappend="'p' +  ${#numbers.formatDecimal( (mc / (mc + 5 * 1.0) * 100), 0,0,'NONE' )} ">
+                                    <span th:text="${mc}">100</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- SECTION  -->
+                <li class="col-md-4">
+                    <div class="ser-inn">
+                        <i class="fa fa-building-o"></i>
+                        <h4>Registered companies</h4>
+                        <i class="fa fa-building-o big"></i>
+                        <div class="col-md-12 ccircle">
+                            <div class="round-counter-single">
+                                <div class="c100 green"
+                                     th:classappend="'p' +  ${#numbers.formatDecimal( (cc / (cc + 5 * 1.0) * 100), 0,0,'NONE' )} ">
+                                    <span th:text="${cc}">100</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="uou-block-4e" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6"><a th:href="@{/}" class="logo"><img th:src="@{/images/logolinkedin.png}"
+                                                                               alt=""></a>
+                <ul class="contact-info contain">
+                    <li><i class="fa fa-map-marker"></i>
+                        <address>
+                            Ukraine, Kharkov City
+                        </address>
+                    </li>
+                    <li><i class="fa fa-phone"></i> <a href="tel:#">(050) 999-9999</a></li>
+                    <li><i class="fa fa-envelope"></i> <a href="mailto:#">aks@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <h5>Search posts, members, jobs</h5>
+                <form th:action="@{/search/all}" method="post">
+                    <div class="input-group">
+                        <span class="input-group-btn" id="basic-addon1"><input class="btn btn-default search-but"
+                                                                               type="submit" value="Go!"></span>
+                        <input type="text" class="form-control" name="name" id="search-field"
+                               placeholder="Search keyword" aria-describedby="basic-addon1">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .uou-block-4e -->
+
+<div class="uou-block-4a secondary dark" th:fragment="copyright">
+    <div class="container">
+        <p class="copyright">Hillel Students Team (Alexandr, Konstantin, Svyatoslav) Copyright &copy; 2020. All Rights reserved.</p>
+    </div>
+</div>
+<!-- end .uou-block-4a -->
+
+<div class="uou-block-11a" th:fragment="mobile-menu">
+    <h5 class="title">Menu</h5>
+    <a href="index.html#" class="mobile-sidebar-close">&times;</a>
+    <nav class="main-nav">
+        <ul>
+            <li class="active"><a href="index.html">Index</a></li>
+            <li><a href="listing-filter.html">Professionals</a></li>
+            <li><a href="profile_company.html">Profile Company</a></li>
+            <li><a href="profile_company-no-tabs.html">Profile Company No Tabs</a></li>
+            <li><a href="user-dashboard(connections)(hotkeys-disabled).html">User Dashboard 1</a></li>
+            <li><a href="user-dashboard(connections)(hotkeys-enabled).html">User Dashboard 2</a></li>
+            <li><a href="user-dashboard(followers).html">User Dashboard 3</a></li>
+            <li><a href="user-dashboard(following).html">User Dashboard 4</a></li>
+            <li><a href="blog-post.html">Blog Post</a></li>
+            <li><a href="user-profile(layout-1).html">User Profile</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="gui-kit.html">GUI KIT</a></li>
+        </ul>
+    </nav>
+    <hr>
+</div>
+
+<!-- Scripts -->
+<div th:fragment="footer-scripts" th:remove="tag">
+    <script th:src="@{/js/jquery-2.1.3.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/plugins/superfish.min.js}"></script>
+    <script th:src="@{/js/jquery.ui.min.js}"></script>
+    <script th:src="@{/js/plugins/rangeslider.min.js}"></script>
+    <script th:src="@{/js/plugins/toaster/toastr.min.js}"></script>
+    <script th:src="@{/js/uou-tabs.js}"></script>
+    <script th:src="@{/js/plugins/select2.min.js}"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+    <script th:src="@{/js/plugins/datepicker/moment.js}"></script>
+    <script th:src="@{/js/plugins/datepicker/bootstrap-datetimepicker.min.js}"></script>
+</div>
+</body>
+</html>

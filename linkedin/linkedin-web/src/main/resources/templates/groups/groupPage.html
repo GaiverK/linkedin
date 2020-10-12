@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="mainlayout :: head"></head>
+<body>
+<div id="main-wrapper">
+    <div th:replace="mainlayout :: navigation"></div>
+    <div th:replace="mainlayout :: page-name(name='Single group')"></div>
+    <div class="pb30"></div>
+    <div class="compny-profile">
+        <!-- Profile Company Content -->
+        <div class="profile-company-content has-bg-image" data-bg-color="f5f5f5"
+             style="background-color: rgb(245, 245, 245);">
+            <div class="container">
+                <div class="row">
+                    <!-- SIDE BAR -->
+                    <div class="col-md-4">
+                        <!-- Company Information -->
+                        <div class="sidebar">
+                            <h5 class="main-title" th:text="${group.ownerName}">Mike Tomlinson</h5>
+                            <div class="sidebar-thumbnail"><a
+                                    th:href="@{/profiles/get/{id}(id=${group.ownerProfileId})}"><img
+                                    src="/images/member-1.png" alt=""> </a></div>
+                            <div class="sidebar-information">
+                                <ul class="single-category">
+                                    <li class="row">
+                                        <h6 class="title col-xs-6">Group name</h6>
+                                        <span class="subtitle col-xs-6" th:text="${group.name}"></span>
+                                    </li>
+                                    <li class="row">
+                                        <h6 class="title col-xs-6">Description</h6>
+                                        <span class="subtitle col-xs-6" th:text="${group.description}"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Content -->
+                    <div class="col-md-8">
+                        <div class="network">
+                            <h4>Group</h4>
+                            <!-- Nav Tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="user-dashboard(following).html#connec"
+                                                      aria-expanded="true">Participants <span
+                                        th:text="'(' + ${#lists.size(group.groupMembers)} + ')'"></span></a></li>
+                                <li class=""><a data-toggle="tab" href="user-dashboard(following).html#flow"
+                                                aria-expanded="false">Followers <span
+                                        th:text="'(' + ${#lists.size(group.ownerFollowers)} + ')'"></span></a></li>
+                                <li class=""><a data-toggle="tab" href="user-dashboard(following).html#flowing"
+                                                aria-expanded="false">Following <span
+                                        th:text="'(' + ${#lists.size(group.ownerFollowingMembers)} + ')'"></span></a>
+                                </li>
+                            </ul>
+                            <!-- Tab Content -->
+                            <div class="tab-content">
+                                <!-- Connections -->
+                                <div id="connec" class="tab-pane fade active in parent">
+                                    <div class="net-work-in">
+                                        <!-- Members -->
+                                        <div class="main-mem">
+                                            <!-- Head -->
+                                            <div class="head">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <form th:action="@{/groups/join-group}" id="congroup"
+                                                              method="post">
+                                                            <!--                                                        todo add session member.id instead value=1-->
+                                                            <input type="hidden" name="id" value="1">
+                                                            <input type="hidden" name="groupId" th:value="${group.id}">
+                                                        </form>
+                                                        <button class="connect_to_group"><i class="fa fa-users"></i>Connect
+                                                        </button>
+                                                        <!--                 todo add member.session.id                       -->
+                                                        <button follow="1" class="btnff" disabled member_id="3"><i
+                                                                class="fa fa-user-plus"></i>Follow
+                                                        </button>
+                                                        <button unfolow="1" class="btnuff" disabled member_id="3"><i
+                                                                class="fa fa-user-times"></i>UnFollow
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tittle -->
+                                            <div class="tittle">
+                                                <ul class="row">
+                                                    <li class="col-xs-4"><span>Member</span></li>
+                                                    <li class="col-xs-3"><span>Headline</span></li>
+                                                    <li class="col-xs-3"><span>Followers</span></li>
+                                                    <li class="col-xs-2 n-p-r n-p-l"><span>Connections</span></li>
+                                                </ul>
+                                            </div>
+                                            <!-- Tittle -->
+                                            <div class="folow-persons folow-persons2">
+                                                <ul>
+                                                    <!-- MEMBER -->
+                                                    <li th:each="connector : ${group.groupMembers}">
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <!-- Name -->
+                                                                <div class="checkbox">
+                                                                    <input class="styled chkbox-uff" type="checkbox"
+                                                                           th:attr="memberid=${connector.Id}">
+                                                                    <label></label>
+                                                                </div>
+                                                                <div class="fol-name">
+                                                                    <div class="avatar"><a
+                                                                            th:href="@{/profiles/get/{id}(id=${connector.profileId})}"><img
+                                                                            src="/images/sm-avatar.jpg" alt=""> </a>
+                                                                    </div>
+                                                                    <h6 class="lh3" th:text="${connector.name}">Collin
+                                                                        Weiland</h6>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Location -->
+                                                            <div class="col-xs-3 lh3"><span
+                                                                    th:text="${connector.headline}">San Francisco, USA</span>
+                                                            </div>
+                                                            <!-- Network -->
+                                                            <div class="col-xs-3 n-p-r"><span
+                                                                    th:text="${#lists.size(connector.followers)} + ' Followers'">21 Followers</span>
+                                                                <span th:text="${#lists.size(connector.followingMembers)} + ' Following'">10 Following</span>
+                                                            </div>
+                                                            <!-- Connections -->
+                                                            <div class="col-xs-2 n-p-r n-p-l"><span
+                                                                    th:text="${#lists.size(connector.contacts)} + ' Connections'">31 Connections</span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Followers -->
+                                <div id="flow" class="tab-pane fade parent">
+                                    <div class="net-work-in">
+                                        <!-- Members -->
+                                        <div class="main-mem">
+                                            <!-- Head -->
+                                            <div class="head">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <!--                 todo add member.session.id                       -->
+                                                        <button follow="1" class="btnff" disabled member_id="3"><i
+                                                                class="fa fa-user-plus"></i>Follow
+                                                        </button>
+                                                        <button unfolow="1" class="btnuff" disabled member_id="3"><i
+                                                                class="fa fa-user-times"></i>UnFollow
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tittle -->
+                                            <div class="tittle">
+                                                <ul class="row">
+                                                    <li class="col-xs-4"><span>Member</span></li>
+                                                    <li class="col-xs-3"><span>Headline</span></li>
+                                                    <li class="col-xs-3"><span>Followers</span></li>
+                                                    <li class="col-xs-2 n-p-r n-p-l"><span>Connections</span></li>
+                                                </ul>
+                                            </div>
+                                            <!-- Tittle -->
+                                            <div class="folow-persons folow-persons2">
+                                                <ul>
+                                                    <!-- MEMBER -->
+                                                    <li th:each="connector : ${group.ownerFollowers}">
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <!-- Name -->
+                                                                <div class="checkbox">
+                                                                    <input class="styled chkbox-uff" type="checkbox"
+                                                                           th:attr="memberid=${connector.Id}">
+                                                                    <label></label>
+                                                                </div>
+                                                                <div class="fol-name">
+                                                                    <div class="avatar"><a
+                                                                            th:href="@{/profiles/get/{id}(id=${connector.profileId})}"><img
+                                                                            src="/images/sm-avatar.jpg" alt=""> </a>
+                                                                    </div>
+                                                                    <h6 class="lh3" th:text="${connector.name}">Collin
+                                                                        Weiland</h6>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Location -->
+                                                            <div class="col-xs-3 lh3"><span
+                                                                    th:text="${connector.headline}">San Francisco, USA</span>
+                                                            </div>
+                                                            <!-- Network -->
+                                                            <div class="col-xs-3 n-p-r"><span
+                                                                    th:text="${#lists.size(connector.followers)} + ' Followers'">21 Followers</span>
+                                                                <span th:text="${#lists.size(connector.followingMembers)} + ' Following'">10 Following</span>
+                                                            </div>
+                                                            <!-- Connections -->
+                                                            <div class="col-xs-2 n-p-r n-p-l"><span
+                                                                    th:text="${#lists.size(connector.contacts)} + ' Connections'">31 Connections</span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Following -->
+                                <div id="flowing" class="tab-pane fade parent">
+                                    <div class="net-work-in">
+                                        <!-- Members -->
+                                        <div class="main-mem">
+                                            <!-- Head -->
+                                            <div class="head">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <!--                 todo add member.session.id                       -->
+                                                        <button follow="1" class="btnff" disabled member_id="3"><i
+                                                                class="fa fa-user-plus"></i>Follow
+                                                        </button>
+                                                        <button unfolow="1" class="btnuff" disabled member_id="3"><i
+                                                                class="fa fa-user-times"></i>UnFollow
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tittle -->
+                                            <div class="tittle">
+                                                <ul class="row">
+                                                    <li class="col-xs-4"><span>Member</span></li>
+                                                    <li class="col-xs-3"><span>Headline</span></li>
+                                                    <li class="col-xs-3"><span>Followers</span></li>
+                                                    <li class="col-xs-2 n-p-r n-p-l"><span>Connections</span></li>
+                                                </ul>
+                                            </div>
+                                            <!-- Tittle -->
+                                            <div class="folow-persons folow-persons2">
+                                                <ul>
+                                                    <!-- MEMBER -->
+                                                    <li th:each="connector : ${group.ownerFollowingMembers}">
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <!-- Name -->
+                                                                <div class="checkbox">
+                                                                    <input class="styled chkbox-uff" type="checkbox"
+                                                                           th:attr="memberid=${connector.Id}">
+                                                                    <label></label>
+                                                                </div>
+                                                                <div class="fol-name">
+                                                                    <div class="avatar"><a
+                                                                            th:href="@{/profiles/get/{id}(id=${connector.profileId})}"><img
+                                                                            src="/images/sm-avatar.jpg" alt=""> </a>
+                                                                    </div>
+                                                                    <h6 class="lh3" th:text="${connector.name}">Collin
+                                                                        Weiland</h6>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Location -->
+                                                            <div class="col-xs-3 lh3"><span
+                                                                    th:text="${connector.headline}">San Francisco, USA</span>
+                                                            </div>
+                                                            <!-- Network -->
+                                                            <div class="col-xs-3 n-p-r"><span
+                                                                    th:text="${#lists.size(connector.followers)} + ' Followers'">21 Followers</span>
+                                                                <span th:text="${#lists.size(connector.followingMembers)} + ' Following'">10 Following</span>
+                                                            </div>
+                                                            <!-- Connections -->
+                                                            <div class="col-xs-2 n-p-r n-p-l"><span
+                                                                    th:text="${#lists.size(connector.contacts)} + ' Connections'">31 Connections</span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="mainlayout :: footer"></div>
+    <div th:replace="mainlayout :: copyright"></div>
+</div>
+<div th:replace="mainlayout :: mobile-menu"></div>
+<div th:replace="mainlayout :: footer-scripts"></div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+apply plugin: 'java'
+apply plugin: 'pmd'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.spotbugs'
+
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+pmd {
+    toolVersion = "6.14.0"
+    consoleOutput = true
+    sourceSets = [sourceSets.main]
+    ruleSetFiles = rootProject.files('buildSrc/pmd/pmd_checks.xml')
+}
+
+spotbugs {
+    toolVersion = '4.0.0'
+    effort = "max"
+    reportLevel = "high"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(
+                    dir: it,
+                    exclude: ['**/dto/**', '**/entity/**', '**/*Main*/**', '**/exception/**', '**/configuration/**']
+            )
+        }))
+    }
+}
+
+jacocoTestCoverageVerification {
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(
+                    dir: it,
+                    exclude: ['**/dto/**', '**/entity/**', '**/*Application*/**', '**/exception/**', '**/configuration/**']
+            )
+        }))
+    }
+    violationRules {
+
+        rule {
+            //element = 'METHOD'
+            limit {
+                counter = 'METHOD'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+        }
+
+        rule {
+            //element = 'CLASS'
+            limit {
+                counter = 'CLASS'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+
+        }
+        rule {
+            //element = 'INSTRUCTION'
+            limit {
+                counter = 'INSTRUCTION'
+                value = 'COVEREDRATIO'
+                minimum = 0.5
+            }
+        }
+        rule {
+            //element = 'BRANCH'
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+        }
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+check.dependsOn jacocoTestCoverageVerification
+test.finalizedBy jacocoTestReport
